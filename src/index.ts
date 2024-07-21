@@ -2,15 +2,11 @@ import { createServer} from "./app"
 import mongoose from "mongoose";
 
 
-const DB = 'mongodb://0.0.0.0:27017/readr'
+const DB = process.env.DB
 
 mongoose.connect(DB).then(() => {
   console.log('DB Connected')
 })
-
-
-
-
 
 
 const server = createServer()
