@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import bookService from '../services/books-service.ts';
-import categoryService from '../services/category-service.ts';
+import bookService from '../services/books-service';
+import categoryService from '../services/category-service';
 import mongoose from 'mongoose';
 
 export default class bookController {

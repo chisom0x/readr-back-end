@@ -1,5 +1,5 @@
-import { IUser } from 'types/user.js';
-import User from '../models/user-model.ts';
+import { IUser } from 'types/user';
+import User from '../models/user-model';
 import bcrypt from 'bcryptjs';
 
 export default class userService {

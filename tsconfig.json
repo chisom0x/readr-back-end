@@ -1,21 +1,20 @@
 {
-    "compilerOptions": {
-      "module": "NodeNext",
-      "moduleResolution": "NodeNext",
-      "baseUrl": "src",
-      "outDir": "dist",
-      "target": "ES6",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "esModuleInterop": true,
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "allowJs": true,
-      "allowImportingTsExtensions": true,
-      "noEmit": true,
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "module": "CommonJS",
+    "baseUrl": "src",
+    "outDir": "./src/dist",
+    "target": "ES6",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+  },
+  "include": ["src/**/*"],
+  "paths": {
+    "types/*": ["./types/*"]
   }
-  
+}

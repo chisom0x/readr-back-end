@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import  userService  from "../services/user-service.ts";
-import createSendToken from "../utils/jwt-helper.ts";
-import { IUser } from "../types/user";
+import  userService  from "../services/user-service";
+import createSendToken from "../utils/jwt-helper";
+import type { IUser } from "../types/user.d.ts";
 
 export class authController{
     static async signUp(req: Request, res: Response) {

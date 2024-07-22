@@ -1,4 +1,4 @@
-import bookModel from '../models/book-model.ts';
+import bookModel from '../models/book-model';
 import mongoose from 'mongoose';
 
 export default class bookService {

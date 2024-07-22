@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import categoryService from "../services/category-service.ts";
+import categoryService from "../services/category-service";
 
 export default class categoryController{
     static async createCategory(req: Request, res: Response){

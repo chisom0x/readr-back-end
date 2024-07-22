@@ -1,4 +1,4 @@
-import Category from '../models/category-model.ts'
+import Category from '../models/category-model'
 
 export default class categoryService {
     static async createCategory(category: string){

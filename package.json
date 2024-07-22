@@ -5,7 +5,9 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "jest --watchAll",
-    "dev": "nodemon"
+    "start": "node src/dist/index.js",
+    "dev": "nodemon",
+    "build": "tsc -w"
   },
   "keywords": [],
   "author": "",
@@ -44,11 +46,10 @@
     "typescript": "^5.4.5"
   },
   "nodemon": {
-    "watch": [
-      "src"
-    ],
-    "ext": "ts,js",
-    "exec": "tsx ./src/app.ts"
+      "watch": ["src"],
+      "ext": "ts,json",
+      "ignore": ["src/dist/*"],
+      "exec": "ts-node ./src/index.ts"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import categoryController from '../controllers/category-controller.ts';
+import categoryController from '../controllers/category-controller';
 const router = Router();
 
 router.post("/", categoryController.createCategory)
