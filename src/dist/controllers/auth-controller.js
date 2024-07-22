@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
 const user_service_1 = __importDefault(require("../services/user-service"));
 const jwt_helper_1 = __importDefault(require("../utils/jwt-helper"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class authController {
     static signUp(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,13 +23,17 @@ class authController {
                 const { fullName, email, password } = req.body;
                 const userExists = yield user_service_1.default.emailExists(email);
                 if (userExists)
-                    return res.status(400).json({ status: false, message: 'email already in use!', data: [] });
+                    return res
+                        .status(400)
+                        .json({ status: false, message: 'email already in use!', data: [] });
                 const createdUser = yield user_service_1.default.createUser(fullName, email, password);
                 return (0, jwt_helper_1.default)(createdUser, 200, res);
             }
             catch (err) {
                 console.log(err);
-                return res.status(500).json({ status: false, message: 'something went wrong!', data: [] });
+                return res
+                    .status(500)
+                    .json({ status: false, message: 'something went wrong!', data: [] });
             }
         });
     }
@@ -36,16 +41,25 @@ class authController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
-                const user = yield user_service_1.default.emailExists(email);
+                const user = (yield user_service_1.default.emailExists(email));
+                let userPass = !user ? 'no_user' : user.password;
                 //@ts-ignore
-                const pass = yield user.correctPassword(password, user.password);
+                const pass = bcryptjs_1.default.compare(password, userPass);
                 if (user && pass)
                     return (0, jwt_helper_1.default)(user, 200, res);
-                return res.status(400).json({ status: false, message: 'incorrect email or password!', data: [] });
+                return res
+                    .status(400)
+                    .json({
+                    status: false,
+                    message: 'incorrect email or password!',
+                    data: [],
+                });
             }
             catch (err) {
                 console.log(err);
-                return res.status(500).json({ status: false, message: 'something went wrong!', data: [] });
+                return res
+                    .status(500)
+                    .json({ status: false, message: 'something went wrong!', data: [] });
             }
         });
     }
