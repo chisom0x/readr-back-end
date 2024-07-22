@@ -5,10 +5,10 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "node src/dist/index.js",
     "dev": "nodemon",
     "build:dev": "tsc -w",
-    "build:prod": "tsc"
+    "build:prod": "tsc",
+    "start": "tsc && node src/dist/index.js"
   },
   "keywords": [],
   "author": "",
