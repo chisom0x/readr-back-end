@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import userService from '../services/user-service';
 import createSendToken from '../utils/jwt-helper';
+import LoggedInUser from '../utils/logged-in-user';
 import bcrypt from 'bcryptjs';
 import type { IUser } from '../types/user.d.ts';
 
@@ -56,23 +57,19 @@ export class authController {
       const { email, password } = req.body;
 
       if (!email) {
-        return res
-          .status(400)
-          .json({
-            status: false,
-            message: 'please enter your email!',
-            data: [],
-          });
+        return res.status(400).json({
+          status: false,
+          message: 'please enter your email!',
+          data: [],
+        });
       }
 
       if (!password) {
-        return res
-          .status(400)
-          .json({
-            status: false,
-            message: 'please enter a password!',
-            data: [],
-          });
+        return res.status(400).json({
+          status: false,
+          message: 'please enter a password!',
+          data: [],
+        });
       }
 
       const user = (await userService.emailExists(
@@ -87,6 +84,32 @@ export class authController {
         message: 'incorrect email or password!',
         data: [],
       });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ status: false, message: 'something went wrong!', data: [] });
+    }
+  }
+  static async isLoggedIn(req: Request, res: Response) {
+    try {
+      const userId = await LoggedInUser.getLoggedInUser(req, res);
+
+       if(userId === 'not-logged-in'){
+        return res
+        .status(200)
+        .json({ status: true, message: 'not-logged-in', data: [] });
+       }
+
+      if (!userId) {
+        return res
+          .status(200)
+          .json({ status: true, message: 'user-does-not-exist', data: [] });
+      } else {
+        return res
+          .status(200)
+          .json({ status: true, message: 'user-exist', data: [] });
+      }
     } catch (err) {
       console.log(err);
       return res

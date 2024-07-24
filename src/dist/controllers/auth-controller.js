@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
 const user_service_1 = __importDefault(require("../services/user-service"));
 const jwt_helper_1 = __importDefault(require("../utils/jwt-helper"));
+const logged_in_user_1 = __importDefault(require("../utils/logged-in-user"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class authController {
     static signUp(req, res) {
@@ -63,18 +64,14 @@ class authController {
             try {
                 const { email, password } = req.body;
                 if (!email) {
-                    return res
-                        .status(400)
-                        .json({
+                    return res.status(400).json({
                         status: false,
                         message: 'please enter your email!',
                         data: [],
                     });
                 }
                 if (!password) {
-                    return res
-                        .status(400)
-                        .json({
+                    return res.status(400).json({
                         status: false,
                         message: 'please enter a password!',
                         data: [],
@@ -91,6 +88,34 @@ class authController {
                     message: 'incorrect email or password!',
                     data: [],
                 });
+            }
+            catch (err) {
+                console.log(err);
+                return res
+                    .status(500)
+                    .json({ status: false, message: 'something went wrong!', data: [] });
+            }
+        });
+    }
+    static isLoggedIn(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userId = yield logged_in_user_1.default.getLoggedInUser(req, res);
+                if (userId === 'not-logged-in') {
+                    return res
+                        .status(200)
+                        .json({ status: true, message: 'not-logged-in', data: [] });
+                }
+                if (!userId) {
+                    return res
+                        .status(200)
+                        .json({ status: true, message: 'user-does-not-exist', data: [] });
+                }
+                else {
+                    return res
+                        .status(200)
+                        .json({ status: true, message: 'user-exist', data: [] });
+                }
             }
             catch (err) {
                 console.log(err);
