@@ -6,15 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createServer = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 dotenv_1.default.config();
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://127.0.0.1:5500'],
+    optionsSuccessStatus: 200,
+};
 const createServer = () => {
     const app = (0, express_1.default)();
+    app.use((0, cors_1.default)(corsOptions));
+    app.options('*', (0, cors_1.default)());
     app.use(express_1.default.json());
     app.get('/', (req, res) => {
         res.json({ message: 'Hello World' });
     });
-    app.use("/readr", index_1.default);
+    app.use('/readr', index_1.default);
     return app;
 };
 exports.createServer = createServer;
