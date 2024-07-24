@@ -21,6 +21,27 @@ class authController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { fullName, email, password } = req.body;
+                if (!fullName) {
+                    return res.status(400).json({
+                        status: false,
+                        message: 'please enter your full name!',
+                        data: [],
+                    });
+                }
+                if (!email) {
+                    return res.status(400).json({
+                        status: false,
+                        message: 'please enter your email!',
+                        data: [],
+                    });
+                }
+                if (!password) {
+                    return res.status(400).json({
+                        status: false,
+                        message: 'please enter a password!',
+                        data: [],
+                    });
+                }
                 const userExists = yield user_service_1.default.emailExists(email);
                 if (userExists)
                     return res
@@ -41,15 +62,31 @@ class authController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
+                if (!email) {
+                    return res
+                        .status(400)
+                        .json({
+                        status: false,
+                        message: 'please enter your email!',
+                        data: [],
+                    });
+                }
+                if (!password) {
+                    return res
+                        .status(400)
+                        .json({
+                        status: false,
+                        message: 'please enter a password!',
+                        data: [],
+                    });
+                }
                 const user = (yield user_service_1.default.emailExists(email));
                 let userPass = !user ? 'no_user' : user.password;
                 //@ts-ignore
                 const pass = bcryptjs_1.default.compare(password, userPass);
                 if (user && pass)
                     return (0, jwt_helper_1.default)(user, 200, res);
-                return res
-                    .status(400)
-                    .json({
+                return res.status(400).json({
                     status: false,
                     message: 'incorrect email or password!',
                     data: [],

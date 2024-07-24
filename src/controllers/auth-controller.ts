@@ -8,6 +8,31 @@ export class authController {
   static async signUp(req: Request, res: Response) {
     try {
       const { fullName, email, password } = req.body;
+
+      if (!fullName) {
+        return res.status(400).json({
+          status: false,
+          message: 'please enter your full name!',
+          data: [],
+        });
+      }
+
+      if (!email) {
+        return res.status(400).json({
+          status: false,
+          message: 'please enter your email!',
+          data: [],
+        });
+      }
+
+      if (!password) {
+        return res.status(400).json({
+          status: false,
+          message: 'please enter a password!',
+          data: [],
+        });
+      }
+
       const userExists = await userService.emailExists(email);
       if (userExists)
         return res
@@ -29,6 +54,27 @@ export class authController {
   static async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
+
+      if (!email) {
+        return res
+          .status(400)
+          .json({
+            status: false,
+            message: 'please enter your email!',
+            data: [],
+          });
+      }
+
+      if (!password) {
+        return res
+          .status(400)
+          .json({
+            status: false,
+            message: 'please enter a password!',
+            data: [],
+          });
+      }
+
       const user = (await userService.emailExists(
         email
       )) as unknown as IUser | null;
@@ -36,13 +82,11 @@ export class authController {
       //@ts-ignore
       const pass = bcrypt.compare(password, userPass);
       if (user && pass) return createSendToken(user, 200, res);
-      return res
-        .status(400)
-        .json({
-          status: false,
-          message: 'incorrect email or password!',
-          data: [],
-        });
+      return res.status(400).json({
+        status: false,
+        message: 'incorrect email or password!',
+        data: [],
+      });
     } catch (err) {
       console.log(err);
       return res
