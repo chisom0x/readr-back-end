@@ -147,6 +147,17 @@ class bookService {
             }
         });
     }
+    static getPopularBooks() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const popularBooks = yield book_model_1.default.find().limit(5);
+                return popularBooks;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
     static deleteBookById(bookId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

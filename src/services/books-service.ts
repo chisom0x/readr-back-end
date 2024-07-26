@@ -136,6 +136,15 @@ export default class bookService {
     }
   }
 
+  static async getPopularBooks(){
+    try{
+      const popularBooks = await bookModel.find().limit(5)
+      return popularBooks
+    } catch (err) {
+      throw err;
+    }
+  }
+
   static async deleteBookById(bookId: any) {
     try {
       const book = await bookModel.findByIdAndDelete(bookId);

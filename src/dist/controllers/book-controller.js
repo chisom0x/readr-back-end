@@ -220,6 +220,25 @@ class bookController {
             }
         });
     }
+    static popularBooks(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const popularBooks = yield books_service_1.default.getPopularBooks();
+                return res.status(200).json({
+                    status: true,
+                    message: 'successful',
+                    results: popularBooks.length,
+                    data: popularBooks,
+                });
+            }
+            catch (error) {
+                console.log(error);
+                return res
+                    .status(500)
+                    .json({ status: false, message: 'something went wrong!', data: null });
+            }
+        });
+    }
 }
 exports.default = bookController;
 //# sourceMappingURL=book-controller.js.map

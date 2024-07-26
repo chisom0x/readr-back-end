@@ -191,26 +191,29 @@ export default class bookController {
       }
 
       const category = await categoryService.getCategoryByName(search);
-      if(category) {
-         const categoryId = category._id;
-      const bookCategoryResponse = await bookService.getBooksByCategory(categoryId);
-      if(bookCategoryResponse.length >= 1) {
-        bookCategoryResponse.map((response) => {
-          result.push(response);
-        });
+      if (category) {
+        const categoryId = category._id;
+        const bookCategoryResponse = await bookService.getBooksByCategory(
+          categoryId
+        );
+        if (bookCategoryResponse.length >= 1) {
+          bookCategoryResponse.map((response) => {
+            result.push(response);
+          });
+        }
       }
-      }
-     
 
-      const authorResponse = await bookService.getBookByAuthor(search)
-      if(authorResponse.length >= 1) {
+      const authorResponse = await bookService.getBookByAuthor(search);
+      if (authorResponse.length >= 1) {
         authorResponse.map((response) => {
           result.push(response);
         });
       }
 
-      const descriptionResponse = await bookService.getBooksByDescription(search)
-      if(descriptionResponse.length >= 1) {
+      const descriptionResponse = await bookService.getBooksByDescription(
+        search
+      );
+      if (descriptionResponse.length >= 1) {
         descriptionResponse.map((response) => {
           result.push(response);
         });
@@ -219,6 +222,23 @@ export default class bookController {
       res.json(result);
     } catch (err) {
       console.log(err);
+      return res
+        .status(500)
+        .json({ status: false, message: 'something went wrong!', data: null });
+    }
+  }
+
+  static async popularBooks(req: Request, res: Response) {
+    try {
+      const popularBooks = await bookService.getPopularBooks();
+      return res.status(200).json({
+        status: true,
+        message: 'successful',
+        results: popularBooks.length,
+        data: popularBooks,
+      });
+    } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .json({ status: false, message: 'something went wrong!', data: null });
