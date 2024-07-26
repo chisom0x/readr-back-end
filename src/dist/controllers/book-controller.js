@@ -240,7 +240,7 @@ class bookController {
                 });
             }
             catch (err) {
-                console.log(error);
+                console.log(err);
                 return res
                     .status(500)
                     .json({ status: false, message: 'something went wrong!', data: null });
