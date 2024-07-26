@@ -7,9 +7,14 @@ import router from './routes/index';
 dotenv.config();
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://127.0.0.1:5500'],
+  origin: [
+    'http://localhost:3000', 
+    'http://127.0.0.1:5500',
+    'https://readrbooks.netlify.app'
+  ],
   optionsSuccessStatus: 200,
 };
+
 
 export const createServer = () => {
   const app = express();
