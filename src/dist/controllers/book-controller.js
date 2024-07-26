@@ -224,11 +224,19 @@ class bookController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const popularBooks = yield books_service_1.default.getPopularBooks();
+                let data = [];
+                for (const book of popularBooks) {
+                    data.push({
+                        cover: book.cover,
+                        title: book.title,
+                        bookId: book._id
+                    });
+                }
                 return res.status(200).json({
                     status: true,
                     message: 'successful',
                     results: popularBooks.length,
-                    data: popularBooks,
+                    data: data,
                 });
             }
             catch (error) {

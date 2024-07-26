@@ -231,11 +231,19 @@ export default class bookController {
   static async popularBooks(req: Request, res: Response) {
     try {
       const popularBooks = await bookService.getPopularBooks();
+       let data = []
+       for(const book of popularBooks){
+          data.push({
+            cover: book.cover,
+            title: book.title,
+            bookId: book._id
+          })
+       }
       return res.status(200).json({
         status: true,
         message: 'successful',
         results: popularBooks.length,
-        data: popularBooks,
+        data: data,
       });
     } catch (error) {
       console.log(error);
