@@ -138,7 +138,7 @@ export default class bookService {
 
   static async getPopularBooks(){
     try{
-      const popularBooks = await bookModel.find().limit(5)
+      const popularBooks = await bookModel.find().limit(6)
       return popularBooks
     } catch (err) {
       throw err;
