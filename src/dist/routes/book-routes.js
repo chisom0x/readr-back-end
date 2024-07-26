@@ -12,6 +12,7 @@ router.get('/by-category/:categoryId', book_controller_1.default.booksByCategory
 router.get('/by-id/:bookId', book_controller_1.default.bookById);
 router.get('/recently-added', book_controller_1.default.recentlyAddedBooks);
 router.get('/popular-books', book_controller_1.default.popularBooks);
+router.get('/web-dev-books', book_controller_1.default.webDevBooks);
 router.get('/search/:search', book_controller_1.default.searchBooks);
 router.delete('/:bookId', book_controller_1.default.deleteBook);
 exports.default = router;

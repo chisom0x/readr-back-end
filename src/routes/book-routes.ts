@@ -8,6 +8,7 @@ router.get('/by-category/:categoryId', bookController.booksByCategory);
 router.get('/by-id/:bookId', bookController.bookById);
 router.get('/recently-added', bookController.recentlyAddedBooks);
 router.get('/popular-books', bookController.popularBooks);
+router.get('/web-dev-books', bookController.webDevBooks)
 router.get('/search/:search', bookController.searchBooks);
 router.delete('/:bookId', bookController.deleteBook);
 

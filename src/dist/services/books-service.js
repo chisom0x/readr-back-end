@@ -158,6 +158,17 @@ class bookService {
             }
         });
     }
+    static getWebDevBooks() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const webDevBooks = yield book_model_1.default.find().limit(6);
+                return webDevBooks;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
     static deleteBookById(bookId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bookService from '../services/books-service';
 import categoryService from '../services/category-service';
 import mongoose from 'mongoose';
+import bookModel from 'models/book-model';
 
 export default class bookController {
   static async addBook(req: Request, res: Response) {
@@ -243,6 +244,31 @@ export default class bookController {
         status: true,
         message: 'successful',
         results: popularBooks.length,
+        data: data,
+      });
+    } catch (err) {
+      console.log(err);
+      return res
+        .status(500)
+        .json({ status: false, message: 'something went wrong!', data: null });
+    }
+  }
+
+  static async webDevBooks(req: Request, res: Response) {
+    try {
+      const webDevBooks = await bookService.getWebDevBooks();
+      let data = [];
+      for (const book of webDevBooks) {
+        data.push({
+          cover: book.cover,
+          title: book.title,
+          bookId: book._id,
+        });
+      }
+      return res.status(200).json({
+        status: true,
+        message: 'successful',
+        results: webDevBooks.length,
         data: data,
       });
     } catch (err) {

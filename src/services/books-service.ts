@@ -145,6 +145,15 @@ export default class bookService {
     }
   }
 
+  static async getWebDevBooks(){
+    try{
+      const webDevBooks = await bookModel.find().limit(6)
+      return webDevBooks
+    } catch (err) {
+      throw err;
+    }
+  }
+
   static async deleteBookById(bookId: any) {
     try {
       const book = await bookModel.findByIdAndDelete(bookId);
