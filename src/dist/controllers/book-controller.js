@@ -239,7 +239,7 @@ class bookController {
                     data: data,
                 });
             }
-            catch (error) {
+            catch (err) {
                 console.log(error);
                 return res
                     .status(500)
