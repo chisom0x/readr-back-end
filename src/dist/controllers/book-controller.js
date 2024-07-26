@@ -229,7 +229,7 @@ class bookController {
                     data.push({
                         cover: book.cover,
                         title: book.title,
-                        bookId: book._id
+                        bookId: book._id,
                     });
                 }
                 return res.status(200).json({
