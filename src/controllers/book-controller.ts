@@ -81,7 +81,6 @@ export default class bookController {
           data: null,
         });
       const newCategoryId = new mongoose.Types.ObjectId(categoryId);
-      console.log(newCategoryId);
 
       const books = await bookService.getBooksByCategory(newCategoryId);
       if (!books)
@@ -90,10 +89,20 @@ export default class bookController {
           message: 'invalid category id',
           data: null,
         });
+        let data = []
+        for(const book of books){
+           data.push({
+             cover: book.cover,
+             title: book.title,
+             pages: book.pages,
+             size: book.size,
+             author: book.author
+           })
+        }
       res.status(200).json({
         status: true,
         message: 'successful',
-        data: books,
+        data: data,
       });
     } catch (err) {
       console.log(err);

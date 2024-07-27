@@ -86,7 +86,6 @@ class bookController {
                         data: null,
                     });
                 const newCategoryId = new mongoose_1.default.Types.ObjectId(categoryId);
-                console.log(newCategoryId);
                 const books = yield books_service_1.default.getBooksByCategory(newCategoryId);
                 if (!books)
                     return res.status(400).json({
@@ -94,10 +93,20 @@ class bookController {
                         message: 'invalid category id',
                         data: null,
                     });
+                let data = [];
+                for (const book of books) {
+                    data.push({
+                        cover: book.cover,
+                        title: book.title,
+                        pages: book.pages,
+                        size: book.size,
+                        author: book.author
+                    });
+                }
                 res.status(200).json({
                     status: true,
                     message: 'successful',
-                    data: books,
+                    data: data,
                 });
             }
             catch (err) {
