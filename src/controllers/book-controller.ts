@@ -61,7 +61,16 @@ export default class bookController {
       res.status(200).json({
         status: true,
         message: 'successful',
-        data: book,
+        data: {
+          cover: book.cover,
+          title: book.title,
+          author: book.author,
+          pages: book.pages,
+          size: book.size,
+          description: book.description,
+          downloadLink: book.link,
+          save: 'save_link'
+        },
       });
     } catch (err) {
       console.log(err);
